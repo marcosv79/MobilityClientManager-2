@@ -29,7 +29,7 @@ int guardarMeios(Meio* inicio)
  while (aux != NULL)
  {
   fprintf(fp,"%d;%f;%f;%s;%d;%s\n", aux->codigo, aux->bateria, 
-	                      aux->autonomia, aux->tipo, aux->custo, aux->localizacao);
+	                      aux->autonomia, aux->tipo, aux->custo, aux->locMeio);
   aux = aux->seguinte;
  }
  fclose(fp);
@@ -45,14 +45,14 @@ Meio* lerMeios() {
     if (fp != NULL) {
         Meio meio; // Cria o elemento meio para guardar os dados lidos
         while (fread(&meio, sizeof(Meio), 1, fp) == 1) { // Lê uma struct Meio inteira do arquivo
-            aux = inserirMeio(aux, meio.codigo, meio.tipo, meio.bateria, meio.autonomia, meio.custo, meio.localizacao);
+            aux = inserirMeio(aux, meio.codigo, meio.tipo, meio.bateria, meio.autonomia, meio.custo, meio.locMeio);
         }
         fclose(fp);
     }
     return aux; // Retorna o ponteiro para o inicio da lista 
 }
 
-Meio* inserirMeio(Meio * inicio, int cod, char tipo[], float bat, float aut, int cst, char loc[])
+Meio* inserirMeio(Meio * inicio, int cod, char tipo[], float bat, float aut, int cst, char locM[])
 {
  if (!existeMeio(inicio, cod))
  {Meio * novo = malloc(sizeof(struct registo)); // Alocar memória para o novo registo
@@ -64,7 +64,7 @@ Meio* inserirMeio(Meio * inicio, int cod, char tipo[], float bat, float aut, int
    novo->autonomia = aut;
    novo->custo = cst;
    novo->alugado = 0;
-   strcpy(novo->localizacao,loc);
+   strcpy(novo->locMeio,locM);
    novo->seguinte = inicio; // Insere o novo registo no inicio da lista
    return(novo);
   }
@@ -74,7 +74,7 @@ Meio* inserirMeio(Meio * inicio, int cod, char tipo[], float bat, float aut, int
 void listarMeios(Meio * inicio)
 {while (inicio != NULL)
  {printf("%d %s %.2f %.2f %d %s\n",inicio->codigo,inicio->tipo, 
-		             inicio->bateria, inicio->autonomia, inicio->custo, inicio->localizacao); 
+		             inicio->bateria, inicio->autonomia, inicio->custo, inicio->locMeio); 
   inicio = inicio->seguinte;
  }
 }
@@ -84,11 +84,11 @@ void listarMeiosPorLocalizacao(Meio * inicio) {
     printf("Digite a localização para listar os meios: ");
     scanf("%s", loc);
     while (inicio != NULL) {
-        if (strcmp(loc, inicio->localizacao) == 0) {
+        if (strcmp(loc, inicio->locMeio) == 0) {
             printf("%d %s %.2f %.2f %d %s\n",
                 inicio->codigo, inicio->tipo, inicio->bateria,
                 inicio->autonomia, inicio->custo,
-                inicio->localizacao); 
+                inicio->locMeio); 
         }
         inicio = inicio->seguinte;
     }
@@ -126,7 +126,7 @@ Meio* removerMeio(Meio* inicio, int cod)
  }
 }
 
-Meio* atualizarMeio(Meio* inicio, int cod, char novoTipo[], float novaBat, float novaAut, int novoCst, char novaLoc[]) {
+Meio* atualizarMeio(Meio* inicio, int cod, char novoTipo[], float novaBat, float novaAut, int novoCst, char novaLocM[]) {
     Meio* atual = inicio;
 
     while (atual != NULL) {
@@ -136,9 +136,9 @@ Meio* atualizarMeio(Meio* inicio, int cod, char novoTipo[], float novaBat, float
             {
                 strcpy(atual->tipo, novoTipo);
             }
-            if (strlen(novaLoc) > 0)
+            if (strlen(novaLocM) > 0)
             {
-                strcpy(atual->localizacao,novaLoc);
+                strcpy(atual->locMeio,novaLocM);
             }
             atual->bateria = novaBat;
             atual->autonomia = novaAut;
@@ -168,7 +168,7 @@ void listarMeiosPorAutonomia(Meio * inicio)
             novo_elemento->bateria = inicio->bateria;
             novo_elemento->autonomia = inicio->autonomia;
             novo_elemento->custo = inicio->custo;
-            strcpy(novo_elemento->localizacao, inicio->localizacao);
+            strcpy(novo_elemento->locMeio, inicio->locMeio);
             novo_elemento->seguinte = nova_lista;
             // Novo elemento inserido no inicio da nova lista
             nova_lista = novo_elemento;
@@ -187,7 +187,7 @@ void listarMeiosPorAutonomia(Meio * inicio)
             novo_elemento->bateria = inicio->bateria;
             novo_elemento->autonomia = inicio->autonomia;
             novo_elemento->custo = inicio->custo;
-            strcpy(novo_elemento->localizacao, inicio->localizacao);
+            strcpy(novo_elemento->locMeio, inicio->locMeio);
             novo_elemento->seguinte = ponteiro->seguinte;
             ponteiro->seguinte = novo_elemento;
         }
@@ -197,7 +197,7 @@ void listarMeiosPorAutonomia(Meio * inicio)
     printf("Meios ordenados por autonomia (decrescente):\n");
     while (nova_lista != NULL)
     {
-        printf("%d %s %.2f %.2f %d %s\n", nova_lista->codigo, nova_lista->tipo, nova_lista->bateria, nova_lista->autonomia, nova_lista->custo, nova_lista->localizacao);
+        printf("%d %s %.2f %.2f %d %s\n", nova_lista->codigo, nova_lista->tipo, nova_lista->bateria, nova_lista->autonomia, nova_lista->custo, nova_lista->locMeio);
         nova_lista = nova_lista->seguinte;
     }
 }

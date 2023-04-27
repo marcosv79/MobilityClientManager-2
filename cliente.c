@@ -28,7 +28,7 @@ int guardarClientes(Cliente* inicio)
  Cliente* aux= inicio;
  while (aux != NULL)
  {
-  fprintf(fp,"%d; %d; %s; %s; %s\n", aux->nifCliente, aux->saldoCliente, aux->nomeCliente, aux->moradaCliente, aux->senhaCliente);
+  fprintf(fp,"%d; %d; %s; %s; %s; %s\n", aux->nifCliente, aux->saldoCliente, aux->nomeCliente, aux->moradaCliente, aux->senhaCliente, aux->locCliente);
   aux = aux->seguinte;
  }
  fclose(fp);
@@ -44,14 +44,14 @@ Cliente* lerClientes() {
     if (fp != NULL) {
         Cliente cliente; // Cria o elemento cliente para guardar os dados lidos
         while (fread(&cliente, sizeof(Cliente), 1, fp) == 1) { // Lê uma struct Cliente inteira do arquivo
-            aux = inserirCliente(aux, cliente.nifCliente, cliente.saldoCliente, cliente.nomeCliente, cliente.moradaCliente, cliente.senhaCliente);
+            aux = inserirCliente(aux, cliente.nifCliente, cliente.saldoCliente, cliente.nomeCliente, cliente.moradaCliente, cliente.senhaCliente, cliente.locCliente);
         }
         fclose(fp);
     }
     return aux; // Retorna o ponteiro para o inicio da lista 
 }
 
-Cliente* inserirCliente(Cliente * inicio, int nifC, int saldoC, char nomeC[], char moradaC[], char senhaC[])
+Cliente* inserirCliente(Cliente * inicio, int nifC, int saldoC, char nomeC[], char moradaC[], char senhaC[], char locC[50])
 {
  if (!existeCliente(inicio, nifC))
  {Cliente * novo = malloc(sizeof(struct cliente)); // Alocar memória para o novo registo
@@ -62,6 +62,7 @@ Cliente* inserirCliente(Cliente * inicio, int nifC, int saldoC, char nomeC[], ch
    strcpy(novo->nomeCliente,nomeC);
    strcpy(novo->moradaCliente,moradaC);
    strcpy(novo->senhaCliente,senhaC);
+   strcpy(novo->locCliente,locC);
    novo->seguinte = inicio; // Insere o novo registo no inicio da lista
    return(novo);
   }
@@ -70,7 +71,7 @@ Cliente* inserirCliente(Cliente * inicio, int nifC, int saldoC, char nomeC[], ch
 
 void listarCliente(Cliente * inicio)
 {while (inicio != NULL)
- {printf("%d %d %s %s %s\n",inicio->nifCliente, inicio->saldoCliente, inicio->nomeCliente, inicio->moradaCliente, inicio->senhaCliente);
+ {printf("%d %d %s %s %s %s\n",inicio->nifCliente, inicio->saldoCliente, inicio->nomeCliente, inicio->moradaCliente, inicio->senhaCliente, inicio->locCliente);
   inicio = inicio->seguinte;
  }
 }
@@ -107,7 +108,7 @@ Cliente* removerCliente(Cliente* inicio, int nifC)
  }
 }
 
-Cliente* atualizarCliente(Cliente* inicio, int nifC, char novoNomeC[], char novaMoradaC[], char novaSenhaC[]) {
+Cliente* atualizarCliente(Cliente* inicio, int nifC, char novoNomeC[], char novaMoradaC[], char novaSenhaC[], char novaLocC[50]) {
     Cliente* atual = inicio;
 
     while (atual != NULL) {
@@ -121,6 +122,9 @@ Cliente* atualizarCliente(Cliente* inicio, int nifC, char novoNomeC[], char nova
             }
             if (strlen(novaSenhaC) > 0) {
                 strcpy(atual->senhaCliente, novaSenhaC);
+            }
+            if (strlen(novaLocC) > 0) {
+                strcpy(atual->locCliente, novaLocC);
             }
 
             return inicio;

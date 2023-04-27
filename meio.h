@@ -10,11 +10,11 @@ typedef struct registo
     float autonomia;
     int custo;
     int alugado;
-    char localizacao[50];
+    char locMeio[50];
     struct registo* seguinte;
 } Meio;
 
-Meio* inserirMeio(Meio* inicio, int cod, char tipo[], float bat, float aut, int cst, char loc[]); // Inserção de um novo registo
+Meio* inserirMeio(Meio* inicio, int cod, char tipo[], float bat, float aut, int cst, char locM[]); // Inserção de um novo registo
 void listarMeios(Meio* inicio); // listar na consola o conteúdo da lista ligada
 int existeMeio(Meio* inicio, int codigo); // Determinar existência do 'codigo' na lista ligada 'inicio'
 Meio* removerMeio(Meio* inicio, int cod); // Remover um meio a partir do seu código
@@ -22,7 +22,7 @@ Meio* removerMeio(Meio* inicio, int cod); // Remover um meio a partir do seu có
 int guardarMeios(Meio* inicio);
 Meio* lerMeios();
 
-Meio* atualizarMeio(Meio* inicio, int cod, char novoTipo[], float novaBat, float novaAut, int novoCst, char novaLoc[]);
+Meio* atualizarMeio(Meio* inicio, int cod, char novoTipo[], float novaBat, float novaAut, int novoCst, char novaLocM[]);
 
 void listarMeiosPorAutonomia(Meio* inicio);
 int devolverMeio(Meio* inicio, int codigo);

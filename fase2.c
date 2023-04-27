@@ -253,7 +253,7 @@ int menuPrincipal(Meio* meios)
     char nomeG[50], novoNomeG[50], moradaG[50], novaMoradaG[50], senhaG[50], novaSenhaG[50];
     Cliente* clientes = NULL;
     int nifC, saldoC, novoSaldoC;
-    char nomeC[50], novoNomeC[50], moradaC[50], novaMoradaC[50], senhaC[50], novaSenhaC[50];
+    char nomeC[50], novoNomeC[50], moradaC[50], novaMoradaC[50], senhaC[50], novaSenhaC[50], locC[50], novaLocC[50];
     int op;
 
     do {
@@ -336,7 +336,9 @@ int menuPrincipal(Meio* meios)
                 scanf("%s", moradaC);
                 printf("Senha do cliente: \n");
                 scanf("%s", senhaC);
-                clientes = inserirCliente(clientes, nifC, saldoC, nomeC, moradaC, senhaC);
+                printf("Localização do cliente: \n");
+                scanf("%s", locC);
+                clientes = inserirCliente(clientes, nifC, saldoC, nomeC, moradaC, senhaC, locC);
                 guardarClientes(clientes);
                 guardarClienteBinario(clientes);
                 break;
@@ -365,7 +367,9 @@ int menuPrincipal(Meio* meios)
 			    scanf("%s", novaMoradaC);
 			    printf("Insira a nova senha: ");
 			    scanf("%s", novaSenhaC);
-			    clientes = atualizarCliente(clientes, nifC, novoNomeC, novaMoradaC, novaSenhaC);
+                printf("Insira a nova localização: ");
+			    scanf("%s", novaLocC);
+			    clientes = atualizarCliente(clientes, nifC, novoNomeC, novaMoradaC, novaSenhaC, novaLocC);
 			    guardarClientes(clientes);
                 guardarClienteBinario(clientes);
 			    break;
