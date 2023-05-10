@@ -1,102 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "grafo.h"
 
-No* criarNo(Grafo* grafo, char* localizacao, Cliente* clientes, Meio* meios) {
-    // Verificar se um nó já foi criado para a localização
-    No* noAtual = grafo->listaNos;
-    while (noAtual != NULL) {
-        if (strcmp(noAtual->localizacao, localizacao) == 0) {
-            return noAtual;
-        }
-        noAtual = noAtual->proximo;
+void criarArquivoLocalizacoes() {
+    FILE* arquivo = fopen("localizacoes.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        return;
     }
 
-    // Procurar a localização na lista de clientes
-    Cliente* clienteAtual = clientes;
-    while (clienteAtual != NULL) {
-        if (strcmp(clienteAtual->locCliente, localizacao) == 0) {
-            // Localização encontrada
-            No* novoNo = (No*)malloc(sizeof(No));
-            strcpy(novoNo->localizacao, localizacao);
-            novoNo->proximo = NULL;
-            novoNo->listaArestas = NULL;
+    // Abrir o arquivo de clientes
+    FILE* clientes = fopen("clientes.txt", "r");
+    if (clientes == NULL) {
+        printf("Erro ao abrir o arquivo de clientes.\n");
+        fclose(arquivo);
+        return;
+    }
 
-            // Adicionar o novo nó à lista de nós do grafo
-            if (grafo->listaNos == NULL) {
-                grafo->listaNos = novoNo;
-            } else {
-                No* noAtual = grafo->listaNos;
-                while (noAtual->proximo != NULL) {
-                    noAtual = noAtual->proximo;
-                }
-                noAtual->proximo = novoNo;
+    // Percorrer o arquivo de clientes e escrever cada localização no arquivo de localizações
+    char linha[256];
+    while (fgets(linha, sizeof(linha), clientes) != NULL) {
+        char localizacao[50];
+        if (sscanf(linha, "%*d;%*d;%*[^;];%*[^;];%*[^;];%49[^\n]", localizacao) == 1) {
+            if (fprintf(arquivo, "%s\n", localizacao) < 0) {
+                printf("Erro ao escrever no arquivo de localizações!\n");
+                fclose(clientes);
+                fclose(arquivo);
+                return;
             }
-            grafo->numNos++;
-            return novoNo;
         }
-        clienteAtual = clienteAtual->seguinte;
     }
 
-    // Procurar a localização na lista de meios
-    Meio* meioAtual = meios;
-    while (meioAtual != NULL) {
-        if (strcmp(meioAtual->locMeio, localizacao) == 0) {
-            // Localização encontrada
-            No* novoNo = (No*)malloc(sizeof(No));
-            strcpy(novoNo->localizacao, localizacao);
-            novoNo->proximo = NULL;
-            novoNo->listaArestas = NULL;
+    fclose(clientes);
 
-            // Adicionar o novo nó à lista de nós do grafo
-            if (grafo->listaNos == NULL) {
-                grafo->listaNos = novoNo;
-            } else {
-                No* noAtual = grafo->listaNos;
-                while (noAtual->proximo != NULL) {
-                    noAtual = noAtual->proximo;
-                }
-                noAtual->proximo = novoNo;
+    // Abrir o arquivo de meios
+    FILE* meios = fopen("meios.txt", "r");
+    if (meios == NULL) {
+        printf("Erro ao abrir o arquivo de meios.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    // Percorrer o arquivo de meios e escrever cada localização no arquivo de localizações
+    while (fgets(linha, sizeof(linha), meios) != NULL) {
+        char localizacao[50];
+        if (sscanf(linha, "%*d;%*[^;];%*[^;];%*[^;];%*[^;];%49[^\n]", localizacao) == 1) {
+            if (fprintf(arquivo, "%s\n", localizacao) < 0) {
+                printf("Erro ao escrever no arquivo de localizações!\n");
+                fclose(meios);
+                fclose(arquivo);
+                return;
             }
-            grafo->numNos++;
-            return novoNo;
         }
-        meioAtual = meioAtual->seguinte;
     }
-
-    // Localização não encontrada
-    return NULL;
-}
-
-void criarAresta(Grafo* grafo) {
-    No* no1 = grafo->listaNos;
-    while (no1 != NULL) {
-        No* no2 = grafo->listaNos;
-        while (no2 != NULL) {
-            if (no1 != no2) {
-                Aresta* novaAresta = (Aresta*)malloc(sizeof(Aresta));
-                novaAresta->destino = no2;
-                novaAresta->peso = rand() % 151 + 50; // Peso entre 50 e 200
-                novaAresta->proxima = no1->listaArestas;
-                no1->listaArestas = novaAresta;
-            }
-            no2 = no2->proximo;
-        }
-        no1 = no1->proximo;
-    }
-}
-
-void gerarGrafo(Grafo* grafo) {
-    printf("Localizações:\n");
-    No* noAtual = grafo->listaNos;
-    while (noAtual != NULL) {
-        printf("%s\n", noAtual->localizacao);
-        Aresta* arestaAtual = noAtual->listaArestas;
-        while (arestaAtual != NULL) {
-            printf("Distância entre %s e %s: %d\n", noAtual->localizacao, arestaAtual->destino->localizacao, arestaAtual->peso);
-            arestaAtual = arestaAtual->proxima;
-        }
-        noAtual = noAtual->proximo;
-    }
+    fclose(meios);
+    fclose(arquivo);
 }

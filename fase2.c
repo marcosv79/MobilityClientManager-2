@@ -388,10 +388,8 @@ int menuPrincipal(Meio* meios)
                 clientes = lerClientes();
                 break;
             case 14:
-                Grafo grafo;
-                No* no = criarNo(&grafo, clientes->locCliente, clientes, meios);
-                criarAresta(&grafo);
-                gerarGrafo(&grafo);
+                criarArquivoLocalizacoes();
+                criarGrafo();
                 break;
             case 0:
             	printf("A sair...\n");
