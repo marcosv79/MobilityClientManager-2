@@ -28,7 +28,7 @@ int guardarClientes(Cliente* inicio)
  Cliente* aux= inicio;
  while (aux != NULL)
  {
-  fprintf(fp,"%d; %d; %s; %s; %s; %s\n", aux->nifCliente, aux->saldoCliente, aux->nomeCliente, aux->moradaCliente, aux->senhaCliente, aux->locCliente);
+  fprintf(fp,"%d;%d;%s;%s;%s;%s\n", aux->nifCliente, aux->saldoCliente, aux->nomeCliente, aux->moradaCliente, aux->senhaCliente, aux->locCliente);
   aux = aux->seguinte;
  }
  fclose(fp);

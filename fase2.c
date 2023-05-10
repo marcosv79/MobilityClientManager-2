@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gestor.h"
+#include "cliente.h"
+#include "meio.h"
 #include "grafo.h"
 
 int menuLoginGestor()
@@ -388,8 +390,13 @@ int menuPrincipal(Meio* meios)
                 clientes = lerClientes();
                 break;
             case 14:
+                Grafo grafo;
                 criarArquivoLocalizacoes();
-                criarGrafo();
+                inicializarGrafo(&grafo);
+                
+                criarGrafoLocalizacoes(&grafo);
+                
+                imprimirGrafo(&grafo);
                 break;
             case 0:
             	printf("A sair...\n");
