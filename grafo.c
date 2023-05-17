@@ -12,8 +12,22 @@ No* criarAdicionarNo(Grafo* grafo, const char* localizacao) {
     return novoNo;
 }
 
+int arestaExiste(No* origem, No* destino) {
+    Aresta* arestaAtual = origem->arestas;
+    while (arestaAtual != NULL) {
+        if (arestaAtual->destino == destino) {
+            return 1;
+        }
+        arestaAtual = arestaAtual->prox;
+    }
+    return 0;
+}
 
 void adicionarAresta(No* origem, No* destino, int peso) {
+    if (arestaExiste(origem, destino)) {
+        return;
+    }
+
     Aresta* novaAresta = (Aresta*) malloc(sizeof(Aresta));
     novaAresta->destino = destino;
     novaAresta->peso = peso;
@@ -30,6 +44,7 @@ void adicionarArestas(Grafo* grafo) {
                 // Gera um peso aleatório entre 50 e 200
                 int peso = rand() % 151 + 50;
                 adicionarAresta(noAtual, noDestino, peso);
+                adicionarAresta(noDestino, noAtual, peso); // Adiciona a aresta inversa com o mesmo peso
             }
             noDestino = noDestino->seguinte;
         }
@@ -81,11 +96,6 @@ void imprimirGrafo(Grafo* grafo) {
     }
 }
 
-
-
-
-
-
 void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
     FILE* arquivo = fopen("localizacoes.txt", "w+");
     if (arquivo == NULL) {
@@ -95,21 +105,21 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
 
     Cliente* clienteAtual = clientes;
     while (clienteAtual != NULL) {
-            if (fprintf(arquivo, "%s\n", clienteAtual->locCliente) < 0) {
-                printf("Erro ao escrever no arquivo de localizações!\n");
-                fclose(arquivo);
-                return;
-            }
+        if (fprintf(arquivo, "%s\n", clienteAtual->locCliente) < 0) {
+            printf("Erro ao escrever no arquivo de localizações!\n");
+            fclose(arquivo);
+            return;
+        }
         clienteAtual = clienteAtual->seguinte;
     }
 
     Meio* meioAtual = meios;
     while (meioAtual != NULL) {
-            if (fprintf(arquivo, "%s\n", meioAtual->locMeio) < 0) {
-                printf("Erro ao escrever no arquivo de localizações!\n");
-                fclose(arquivo);
-                return;
-            }
+        if (fprintf(arquivo, "%s\n", meioAtual->locMeio) < 0) {
+            printf("Erro ao escrever no arquivo de localizações!\n");
+            fclose(arquivo);
+            return;
+        }
         meioAtual = meioAtual->seguinte;
     }
     fclose(arquivo);
