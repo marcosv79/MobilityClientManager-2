@@ -15,7 +15,7 @@ typedef struct No {
 struct Aresta {
     No* destino;
     int peso;
-    struct Aresta* seguinte;
+    struct Aresta* prox;
 };
 
 typedef struct Grafo {
@@ -28,3 +28,5 @@ void inicializarGrafo(Grafo* grafo);
 void imprimirGrafo(Grafo* grafo);
 void criarGrafoLocalizacoes(Grafo* grafo);
 void buscaLocalizacoes(Cliente* clientes, Meio* meios);
+void adicionarAresta(No* origem, No* destino, int peso);
+void adicionarArestas(Grafo* grafo);
