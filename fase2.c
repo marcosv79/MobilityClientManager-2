@@ -292,9 +292,6 @@ int menuPrincipal(Meio* meios)
         printf("12 - Carregar saldo de um cliente\n");
         printf("13 - Ler clientes\n");
         printf("\n");
-        printf("========== GRAFO ==========\n");
-        printf("14 - Gerar grafo\n");
-        printf("\n");
         printf("0 - Sair\n");
         printf("Opcao: ");
         scanf("%d", &op);
@@ -407,14 +404,6 @@ int menuPrincipal(Meio* meios)
                 break;
             case 13:
                 clientes = lerClientes();
-                break;
-            case 14:
-                clientes = lerClientes();
-                meios = lerMeios();
-                buscaLocalizacoes(clientes,meios);
-                inicializarGrafo(&grafo);
-                criarGrafoLocalizacoes(&grafo);
-                imprimirGrafo(&grafo);
                 break;
             case 0:
             	printf("A sair...\n");
