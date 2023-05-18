@@ -41,8 +41,7 @@ void adicionarArestas(Grafo* grafo) {
         No* noDestino = grafo->cabeca;
         while (noDestino != NULL) {
             if (noAtual != noDestino) {
-                // Gera um peso aleatório entre 50 e 200
-                int peso = rand() % 151 + 50;
+                int peso = rand() % 100;
                 adicionarAresta(noAtual, noDestino, peso);
                 adicionarAresta(noDestino, noAtual, peso); // Adiciona a aresta inversa com o mesmo peso
             }
@@ -124,3 +123,28 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
     }
     fclose(arquivo);
 }
+
+void listarLocalizacoesPorRaio(Grafo* grafo, const char* localizacaoAtual, int raio) {
+    printf("Localizações num raio de %d a partir de %s:\n", raio, localizacaoAtual);
+
+    // Encontrar o nó correspondente à localização atual
+    No* noAtual = grafo->cabeca;
+    while (noAtual != NULL && strcmp(noAtual->nome, localizacaoAtual) != 0) {
+        noAtual = noAtual->seguinte;
+    }
+
+    if (noAtual == NULL) {
+        printf("Localização atual não encontrada no grafo.\n");
+        return;
+    }
+
+    // Percorrer as arestas do nó atual e imprimir as localizações dentro do raio
+    Aresta* arestaAtual = noAtual->arestas;
+    while (arestaAtual != NULL) {
+        if (arestaAtual->peso <= raio) {
+            printf("-> %s (distância: %d)\n", arestaAtual->destino->nome, arestaAtual->peso);
+        }
+        arestaAtual = arestaAtual->prox;
+    }
+}
+

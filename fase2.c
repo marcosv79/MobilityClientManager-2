@@ -186,6 +186,8 @@ int menuLoginCliente(int saldoCliente) {
         printf("========== CLIENTE ==========\n");
         printf("1 - Alugar meio\n");
         printf("2 - Devolver meio\n");
+        printf("3 - Gerar grafo\n");
+        printf("4 - Listar localizações num determinado raio\n");
         printf("0 - Sair\n");
         printf("Opcao:\n");
         scanf("%d", &op);
@@ -209,6 +211,21 @@ int menuLoginCliente(int saldoCliente) {
                 } else {
                     printf("Erro ao devolver o meio.\n");
                 }
+                break;
+            case 3:
+                Grafo grafo;
+                cliente = lerClientes();
+                inicio = lerMeios();
+                buscaLocalizacoes(cliente,inicio);
+                inicializarGrafo(&grafo);
+                criarGrafoLocalizacoes(&grafo);
+                imprimirGrafo(&grafo);
+                break;
+            case 4:
+                int raio;
+                printf("Digite o raio desejado: ");
+                scanf("%d", &raio);
+                listarLocalizacoesPorRaio(&grafo, cliente->locCliente, raio);
                 break;
         }
     } while (op != 0);
@@ -248,6 +265,7 @@ void loginCliente(Cliente* inicio) {
 
 int menuPrincipal(Meio* meios)
 {
+    Grafo grafo;
     Gestor* gestores = NULL;
     int idG;
     char nomeG[50], novoNomeG[50], moradaG[50], novaMoradaG[50], senhaG[50], novaSenhaG[50];
@@ -391,7 +409,6 @@ int menuPrincipal(Meio* meios)
                 clientes = lerClientes();
                 break;
             case 14:
-                Grafo grafo;
                 clientes = lerClientes();
                 meios = lerMeios();
                 buscaLocalizacoes(clientes,meios);

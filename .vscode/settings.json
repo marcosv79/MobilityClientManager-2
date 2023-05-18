@@ -38,6 +38,7 @@
   "files.associations": {
     "cliente.h": "c",
     "gestor.h": "c",
-    "meio.h": "c"
+    "meio.h": "c",
+    "grafo.h": "c"
   }
 }
