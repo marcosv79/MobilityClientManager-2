@@ -148,3 +148,51 @@ void listarLocalizacoesPorRaio(Grafo* grafo, const char* localizacaoAtual, int r
     }
 }
 
+void guardarGrafo(Grafo* grafo){
+    FILE* fp;
+    fp = fopen("grafo.txt","w");
+    if(fp == NULL){
+        printf("Erro ao abrir o arquivo\n");
+        return;
+    }
+
+    No* noAtual = grafo->cabeca;
+    while (noAtual != NULL) {
+        fprintf(fp, "%s\n", noAtual->nome);
+
+        Aresta* arestaAtual = noAtual->arestas;
+        while (arestaAtual != NULL) {
+            fprintf(fp, "%s %d\n", arestaAtual->destino->nome, arestaAtual->peso);
+            arestaAtual = arestaAtual->prox;
+        }
+
+        noAtual = noAtual->seguinte;
+    }
+
+    fclose(fp);
+}
+
+void guardarGrafoBinario(Grafo* grafo){
+    FILE* fp;
+    fp = fopen("grafo.bin","wb");
+    if(fp == NULL){
+        printf("Erro ao abrir o arquivo\n");
+        return;
+    }
+
+    No* noAtual = grafo->cabeca;
+    while (noAtual != NULL) {
+        fwrite(noAtual, sizeof(No), 1, fp);
+        
+        Aresta* arestaAtual = noAtual->arestas;
+        while (arestaAtual != NULL) {
+            fwrite(arestaAtual, sizeof(Aresta), 1, fp);
+            arestaAtual = arestaAtual->prox;
+        }
+
+        noAtual = noAtual->seguinte;
+    }
+
+    fclose(fp);
+}
+

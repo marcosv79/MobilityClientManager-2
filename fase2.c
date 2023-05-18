@@ -220,6 +220,8 @@ int menuLoginCliente(int saldoCliente) {
                 inicializarGrafo(&grafo);
                 criarGrafoLocalizacoes(&grafo);
                 imprimirGrafo(&grafo);
+                guardarGrafo(&grafo);
+                guardarGrafoBinario(&grafo);
                 break;
             case 4:
                 int raio;

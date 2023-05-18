@@ -32,3 +32,5 @@ void adicionarAresta(No* origem, No* destino, int peso);
 void adicionarArestas(Grafo* grafo);
 int arestaExiste(No* origem, No* destino);
 void listarLocalizacoesPorRaio(Grafo* grafo, const char* localizacaoAtual, int raio);
+void guardarGrafo(Grafo* grafo);
+void guardarGrafoBinario(Grafo* grafo);
