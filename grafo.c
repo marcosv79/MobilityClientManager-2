@@ -124,8 +124,8 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
     fclose(arquivo);
 }
 
-void listarLocalizacoesPorRaio(Grafo* grafo, const char* localizacaoAtual, int raio) {
-    printf("Localizações num raio de %d a partir de %s:\n", raio, localizacaoAtual);
+void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int raio, const char* tipo, Meio* listaMeios) {
+    printf("Meios no raio de %d a partir de %s do tipo %s:\n", raio, localizacaoAtual, tipo);
 
     // Encontrar o nó correspondente à localização atual
     No* noAtual = grafo->cabeca;
@@ -138,11 +138,19 @@ void listarLocalizacoesPorRaio(Grafo* grafo, const char* localizacaoAtual, int r
         return;
     }
 
-    // Percorrer as arestas do nó atual e imprimir as localizações dentro do raio
+    // Percorrer as arestas do nó atual e imprimir os meios dentro do raio e do tipo correspondente
     Aresta* arestaAtual = noAtual->arestas;
     while (arestaAtual != NULL) {
         if (arestaAtual->peso <= raio) {
-            printf("-> %s (distância: %d)\n", arestaAtual->destino->nome, arestaAtual->peso);
+            // Encontrar o meio de mobilidade correspondente à localização atual
+            Meio* meioAtual = listaMeios;
+            while (meioAtual != NULL) {
+                if (strcmp(meioAtual->tipo, tipo) == 0 && strcmp(meioAtual->locMeio, arestaAtual->destino->nome) == 0) {
+                    printf("-> Código: %d, Tipo: %s, Bateria: %.2f, Autonomia: %.2f, Custo: %d, Localização: %s (distância: %d)\n", meioAtual->codigo, meioAtual->tipo, meioAtual->bateria, meioAtual->autonomia, meioAtual->custo, meioAtual->locMeio, arestaAtual->peso);
+                    break;
+                }
+                meioAtual = meioAtual->seguinte;
+            }
         }
         arestaAtual = arestaAtual->prox;
     }

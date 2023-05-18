@@ -187,7 +187,7 @@ int menuLoginCliente(int saldoCliente) {
         printf("1 - Alugar meio\n");
         printf("2 - Devolver meio\n");
         printf("3 - Gerar grafo\n");
-        printf("4 - Listar localizações num determinado raio\n");
+        printf("4 - Listar meios num raio e de um determinado tipo\n");
         printf("0 - Sair\n");
         printf("Opcao:\n");
         scanf("%d", &op);
@@ -225,9 +225,12 @@ int menuLoginCliente(int saldoCliente) {
                 break;
             case 4:
                 int raio;
+                char tipo[50];
                 printf("Digite o raio desejado: ");
                 scanf("%d", &raio);
-                listarLocalizacoesPorRaio(&grafo, cliente->locCliente, raio);
+                printf("Digite o tipo do meio de mobilidade desejado: ");
+                scanf("%s", tipo);
+                listarMeiosPorRaioETipo(&grafo, cliente->locCliente, raio, tipo, inicio);
                 break;
         }
     } while (op != 0);
