@@ -2,12 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gestor.h"
-
 #include "grafo.h"
+
+Grafo grafoGlobal;
 
 int menuLoginGestor()
 {
     Meio* meios = NULL;
+    Cliente* clientes;
     int op, cod, cst, novoCst;
     float bat, aut, novaBat, novaAut;
     char tipo[50], novoTipo[50], loc[50], novaLoc[50];
@@ -21,6 +23,7 @@ int menuLoginGestor()
         printf("5 - Remover meio\n");
         printf("6 - Alterar dados de um meio\n");
         printf("7 - Ler meios\n");
+        printf("8 - Gerar grafo\n");
         printf("0 - Sair\n");
         printf("Opcao: \n");
         scanf("%d", &op);
@@ -85,6 +88,18 @@ int menuLoginGestor()
 			    break;
             case 7:
                 meios = lerMeios();
+                break;
+            case 8:
+                Grafo grafo;
+                clientes = lerClientes();
+                meios = lerMeios();
+                buscaLocalizacoes(clientes,meios);
+                inicializarGrafo(&grafo);
+                criarGrafoLocalizacoes(&grafo);
+                imprimirGrafo(&grafo);
+                guardarGrafo(&grafo);
+                guardarGrafoBinario(&grafo);
+                grafoGlobal = grafo;
                 break;
         }
     } while (op != 0);
@@ -186,7 +201,7 @@ int menuLoginCliente(int saldoCliente) {
         printf("========== CLIENTE ==========\n");
         printf("1 - Alugar meio\n");
         printf("2 - Devolver meio\n");
-        printf("3 - Gerar grafo\n");
+        printf("3 - Ver grafo\n");
         printf("4 - Listar meios num raio e de um determinado tipo\n");
         printf("0 - Sair\n");
         printf("Opcao:\n");
@@ -213,30 +228,25 @@ int menuLoginCliente(int saldoCliente) {
                 }
                 break;
             case 3:
-                Grafo grafo;
-                cliente = lerClientes();
-                inicio = lerMeios();
-                buscaLocalizacoes(cliente,inicio);
-                inicializarGrafo(&grafo);
-                criarGrafoLocalizacoes(&grafo);
-                imprimirGrafo(&grafo);
-                guardarGrafo(&grafo);
-                guardarGrafoBinario(&grafo);
+                imprimirGrafo(&grafoGlobal); // Mostrar o grafo global
                 break;
             case 4:
+                cliente = lerClientes();
+                inicio = lerMeios();
                 int raio;
                 char tipo[50];
                 printf("Digite o raio desejado: ");
                 scanf("%d", &raio);
                 printf("Digite o tipo do meio de mobilidade desejado: ");
                 scanf("%s", tipo);
-                listarMeiosPorRaioETipo(&grafo, cliente->locCliente, raio, tipo, inicio);
+                listarMeiosPorRaioETipo(&grafoGlobal, cliente->locCliente, raio, tipo, inicio);
                 break;
         }
     } while (op != 0);
 
     return op;
 }
+
 
 void loginCliente(Cliente* inicio) {
     int nifCliente, existe = 0;
