@@ -247,7 +247,6 @@ int menuLoginCliente(int saldoCliente) {
     return op;
 }
 
-
 void loginCliente(Cliente* inicio) {
     int nifCliente, existe = 0;
     int saldoCliente = 0;

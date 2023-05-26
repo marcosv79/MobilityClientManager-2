@@ -39,6 +39,7 @@
     "cliente.h": "c",
     "gestor.h": "c",
     "meio.h": "c",
-    "grafo.h": "c"
+    "grafo.h": "c",
+    "string.h": "c"
   }
 }
