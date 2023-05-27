@@ -157,4 +157,12 @@ int devolverMeio(Meio* inicio, int codigo);
 void listarMeiosPorLocalizacao(Meio * inicio);
 
 
+/**
+ * @brief Lista os meios existentes com carga abaixo de 50%
+ * 
+ * @param inicio
+ * @return
+ * @author Marcos Vasconcelos
+ * 
+*/
 void listarMeiosCargaBaixa(Meio* inicio);
