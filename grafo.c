@@ -124,17 +124,10 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
 }
 
 void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int raio, const char* tipo, Meio* listaMeios) {
-    printf("Meios no raio de %d a partir de %s do tipo %s:\n", raio, localizacaoAtual, tipo);
-
     // Encontrar o nó correspondente à localização atual
     No* noAtual = grafo->cabeca;
     while (noAtual != NULL && strcmp(noAtual->nome, localizacaoAtual) != 0) {
         noAtual = noAtual->seguinte;
-    }
-
-    if (noAtual == NULL) {
-        printf("Localização atual não encontrada no grafo.\n");
-        return;
     }
 
     // Percorrer as arestas do nó atual e imprimir os meios dentro do raio e do tipo correspondente
@@ -145,7 +138,7 @@ void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int rai
             Meio* meioAtual = listaMeios;
             while (meioAtual != NULL) {
                 if (strcmp(meioAtual->tipo, tipo) == 0 && strcmp(meioAtual->locMeio, arestaAtual->destino->nome) == 0) {
-                    printf("-> Código: %d, Tipo: %s, Bateria: %.2f, Autonomia: %.2f, Custo: %d, Localização: %s (distância: %d)\n", meioAtual->codigo, meioAtual->tipo, meioAtual->bateria, meioAtual->autonomia, meioAtual->custo, meioAtual->locMeio, arestaAtual->peso);
+                    // Aqui você pode armazenar os resultados em uma estrutura de dados ou realizar qualquer outra operação desejada.
                     break;
                 }
                 meioAtual = meioAtual->seguinte;
@@ -199,4 +192,3 @@ void guardarGrafoBinario(Grafo* grafo){
     }
     fclose(fp);
 }
-
