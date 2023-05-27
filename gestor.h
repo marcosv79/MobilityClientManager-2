@@ -23,6 +23,10 @@ typedef struct gestor
  * @brief Insere um novo gestor na lista ligada
  * 
  * @param inicio
+ * @param idG
+ * @param nomeG
+ * @param moradaG
+ * @param senhaG
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -45,6 +49,7 @@ void listarGestor(Gestor* inicio);
  * @brief Determina a existência de um gestor na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param idGestor
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -56,6 +61,7 @@ int existeGestor(Gestor* inicio, int idGestor);
  * @brief Remove um gestor na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param idG
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -99,6 +105,10 @@ Gestor* lerGestor();
  * @brief Atualiza os dados do gestor na lista ligada
  * 
  * @param inicio
+ * @param idG
+ * @param novoNomeG
+ * @param novaMoradaG
+ * @param novaSenhaG
  * @return
  * @author Marcos Vasconcelos
  * 

@@ -7,12 +7,12 @@ No* criarAdicionarNo(Grafo* grafo, const char* localizacao) {
     No* novoNo = (No*) malloc(sizeof(No));
     strcpy(novoNo->nome, localizacao);
     novoNo->seguinte = grafo->cabeca;
-    novoNo->arestas = NULL; // Correção: inicializar arestas como NULL
+    novoNo->arestas = NULL;
     grafo->cabeca = novoNo;
     return novoNo;
 }
 
-int arestaExiste(No* origem, No* destino) {
+int existeAresta(No* origem, No* destino) {
     Aresta* arestaAtual = origem->arestas;
     while (arestaAtual != NULL) {
         if (arestaAtual->destino == destino) {
@@ -24,10 +24,9 @@ int arestaExiste(No* origem, No* destino) {
 }
 
 void adicionarAresta(No* origem, No* destino, int peso) {
-    if (arestaExiste(origem, destino)) {
+    if (existeAresta(origem, destino)) {
         return;
     }
-
     Aresta* novaAresta = (Aresta*) malloc(sizeof(Aresta));
     novaAresta->destino = destino;
     novaAresta->peso = peso;

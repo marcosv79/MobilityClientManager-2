@@ -25,6 +25,12 @@ typedef struct cliente
  * @brief Insere um novo cliente na lista ligada
  * 
  * @param inicio
+ * @param nifC
+ * @param saldoC
+ * @param nomeC
+ * @param moradaC
+ * @param senhaC
+ * @param locC
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -47,6 +53,7 @@ void listarCliente(Cliente* inicio);
  * @brief Determina a existência de um cliente na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param nifCliente
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -58,6 +65,7 @@ int existeCliente(Cliente* inicio, int nifCliente);
  * @brief Remove um cliente na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param nifC
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -101,6 +109,11 @@ Cliente* lerClientes();
  * @brief Atualiza os dados do cliente na lista ligada
  * 
  * @param inicio
+ * @param nifC
+ * @param novoNomeC
+ * @param novaMoradaC
+ * @param novaSenhaC
+ * @param novaLocC
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -112,6 +125,8 @@ Cliente* atualizarCliente(Cliente* inicio, int nifC, char novoNomeC[], char nova
  * @brief Atualiza o valor do saldo do cliente
  * 
  * @param inicio
+ * @param nifC
+ * @param novoSaldoC
  * @return
  * @author Marcos Vasconcelos
  * 

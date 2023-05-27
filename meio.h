@@ -26,6 +26,12 @@ typedef struct registo
  * @brief Insere um novo meio na lista ligada
  * 
  * @param inicio
+ * @param cod
+ * @param tipo
+ * @param bat
+ * @param aut
+ * @param cst
+ * @param locM
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -48,6 +54,7 @@ void listarMeios(Meio* inicio);
  * @brief Determina a existência de um meio na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param codigo
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -59,6 +66,7 @@ int existeMeio(Meio* inicio, int codigo);
  * @brief Remove um meio na lista ligada a partir do seu código
  * 
  * @param inicio
+ * @param cod
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -102,6 +110,12 @@ Meio* lerMeios();
  * @brief Atualiza os dados do meio na lista ligada
  * 
  * @param inicio
+ * @param cod
+ * @param novoTipo
+ * @param novaBat
+ * @param novaAut
+ * @param novoCst
+ * @param novaLocM
  * @return
  * @author Marcos Vasconcelos
  * 
@@ -124,6 +138,7 @@ void listarMeiosPorAutonomia(Meio* inicio);
  * @brief Devolve o meio que foi anteriormente alugado
  * 
  * @param inicio
+ * @param codigo
  * @return
  * @author Marcos Vasconcelos
  * 
