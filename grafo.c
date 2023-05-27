@@ -173,10 +173,8 @@ void guardarGrafo(Grafo* grafo){
             fprintf(fp, "%s %d\n", arestaAtual->destino->nome, arestaAtual->peso);
             arestaAtual = arestaAtual->prox;
         }
-
         noAtual = noAtual->seguinte;
     }
-
     fclose(fp);
 }
 
@@ -200,7 +198,6 @@ void guardarGrafoBinario(Grafo* grafo){
 
         noAtual = noAtual->seguinte;
     }
-
     fclose(fp);
 }
 

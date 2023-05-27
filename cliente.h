@@ -22,7 +22,7 @@ typedef struct cliente
 
 
 /**
- * @brief Insere um novo cliente na lista ligada 'inicio'
+ * @brief Insere um novo cliente na lista ligada
  * 
  * @param inicio
  * @return
@@ -33,7 +33,7 @@ Cliente* inserirCliente(Cliente* inicio, int nifC, int saldoC, char nomeC[], cha
 
 
 /**
- * @brief Lista na consola o conteúdo da lista ligada 'inicio'
+ * @brief Lista na consola o conteúdo da lista ligada
  * 
  * @param inicio
  * @return
@@ -44,7 +44,7 @@ void listarCliente(Cliente* inicio);
 
 
 /**
- * @brief Determina a existência de um cliente na lista ligada 'inicio' a partir do seu código
+ * @brief Determina a existência de um cliente na lista ligada a partir do seu código
  * 
  * @param inicio
  * @return
@@ -55,7 +55,7 @@ int existeCliente(Cliente* inicio, int nifCliente);
 
 
 /**
- * @brief Remove um cliente na lista ligada 'inicio' a partir do seu código
+ * @brief Remove um cliente na lista ligada a partir do seu código
  * 
  * @param inicio
  * @return
@@ -66,7 +66,7 @@ Cliente* removerCliente(Cliente* inicio, int nifC); // Remover um meio a partir 
 
 
 /**
- * @brief Guarda o conteúdo da lista ligada 'inicio' num ficheiro de texto
+ * @brief Guarda o conteúdo da lista ligada num ficheiro de texto
  * 
  * @param inicio
  * @return
@@ -77,7 +77,7 @@ int guardarClientes(Cliente* inicio);
 
 
 /**
- * @brief Guarda o conteúdo da lista ligada 'inicio' num ficheiro binário
+ * @brief Guarda o conteúdo da lista ligada num ficheiro binário
  * 
  * @param inicio
  * @return
@@ -88,7 +88,7 @@ int guardarClienteBinario(Cliente* inicio);
 
 
 /**
- * @brief Faz a leitura dos dados do ficheiro binário e insere-os na lista ligada 'inicio'
+ * @brief Faz a leitura dos dados do ficheiro binário e insere-os na lista ligada
  * 
  * @return
  * @author Marcos Vasconcelos
@@ -98,7 +98,7 @@ Cliente* lerClientes();
 
 
 /**
- * @brief Atualiza os dados do cliente na lista ligada 'inicio'
+ * @brief Atualiza os dados do cliente na lista ligada
  * 
  * @param inicio
  * @return
