@@ -155,3 +155,6 @@ int devolverMeio(Meio* inicio, int codigo);
  * 
 */
 void listarMeiosPorLocalizacao(Meio * inicio);
+
+
+void listarMeiosCargaBaixa(Meio* inicio);

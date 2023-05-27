@@ -20,10 +20,11 @@ int menuLoginGestor()
         printf("2 - Listar meios\n");
         printf("3 - Listar meios por autonomia decrescente\n");
         printf("4 - Listar meios por localizacao\n");
-        printf("5 - Remover meio\n");
-        printf("6 - Alterar dados de um meio\n");
-        printf("7 - Ler meios\n");
-        printf("8 - Gerar grafo\n");
+        printf("5 - Listar meios com carga baixa\n");
+        printf("6 - Remover meio\n");
+        printf("7 - Alterar dados de um meio\n");
+        printf("8 - Ler meios\n");
+        printf("9 - Gerar grafo\n");
         printf("0 - Sair\n");
         printf("Opcao: \n");
         scanf("%d", &op);
@@ -63,13 +64,17 @@ int menuLoginGestor()
                 listarMeiosPorLocalizacao(meios);
                 break;
             case 5:
+                system("cls");
+                listarMeiosCargaBaixa(meios);
+                break;
+            case 6:
             	system("cls");
                 printf("Codigo do meio de mobilidade a remover?\n");
                 scanf("%d", &cod);
                 meios = removerMeio(meios, cod);
                 guardarMeios(meios);
                 break;
-            case 6:
+            case 7:
             	system("cls");
 			    printf("Codigo do meio a alterar?\n");
 			    scanf("%d", &cod);
@@ -86,10 +91,10 @@ int menuLoginGestor()
 			    meios = atualizarMeio(meios, cod, novoTipo, novaBat, novaAut, novoCst, novaLoc);
 			    guardarMeios(meios);
 			    break;
-            case 7:
+            case 8:
                 meios = lerMeios();
                 break;
-            case 8:
+            case 9:
                 Grafo grafo;
                 clientes = lerClientes();
                 meios = lerMeios();

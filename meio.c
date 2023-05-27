@@ -221,3 +221,15 @@ int devolverMeio(Meio* inicio, int codigo) {
     printf("Nao foi possivel encontrar o meio com o codigo %d.\n", codigo);
     return 0;
 }
+
+void listarMeiosCargaBaixa(Meio* inicio) {
+    Meio* meioAtual = inicio;
+
+    while (meioAtual != NULL) {
+        if (meioAtual->bateria < 50.0) {
+            printf("%d %s %.2f %.2f %d %s\n", meioAtual->codigo, meioAtual->tipo,
+                   meioAtual->bateria, meioAtual->autonomia, meioAtual->custo, meioAtual->locMeio);
+        }
+        meioAtual = meioAtual->seguinte;
+    }
+}
