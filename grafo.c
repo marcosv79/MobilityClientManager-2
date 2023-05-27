@@ -23,39 +23,56 @@ int existeAresta(No* origem, No* destino) {
     return 0;
 }
 
-void adicionarAresta(No* origem, No* destino, int peso) {
+int adicionarAresta(No* origem, No* destino, int peso) {
     if (existeAresta(origem, destino)) {
-        return;
+        return 0;
     }
     Aresta* novaAresta = (Aresta*) malloc(sizeof(Aresta));
+    if (novaAresta == NULL) {
+        return 0;
+    }
     novaAresta->destino = destino;
     novaAresta->peso = peso;
     novaAresta->prox = origem->arestas;
     origem->arestas = novaAresta;
+
+    return 1;
 }
 
-void adicionarArestas(Grafo* grafo) {
+int adicionarArestas(Grafo* grafo) {
+    int totalArestasAdicionadas = 0;
+
     No* noAtual = grafo->cabeca;
     while (noAtual != NULL) {
         No* noDestino = grafo->cabeca;
         while (noDestino != NULL) {
             if (noAtual != noDestino) {
                 int peso = rand() % 100;
-                adicionarAresta(noAtual, noDestino, peso);
-                adicionarAresta(noDestino, noAtual, peso); // Adiciona a aresta inversa com o mesmo peso
+                if (adicionarAresta(noAtual, noDestino, peso)) {
+                    totalArestasAdicionadas++;
+                }
+                if (adicionarAresta(noDestino, noAtual, peso)) {
+                    totalArestasAdicionadas++;
+                }
             }
             noDestino = noDestino->seguinte;
         }
         noAtual = noAtual->seguinte;
     }
+
+    return totalArestasAdicionadas;
 }
 
-// Função para inicializar o grafo
-void inicializarGrafo(Grafo* grafo) {
+int inicializarGrafo(Grafo* grafo) {
+    if (grafo == NULL) {
+        return 0;
+    }
+    
     grafo->cabeca = NULL;
+    
+    return 1;
 }
 
-// Função para ler o arquivo de localizações e adicionar os nós ao grafo
 void criarGrafoLocalizacoes(Grafo* grafo) {
     FILE* arquivo = fopen("localizacoes.txt", "r");
     if (arquivo == NULL) {
@@ -69,14 +86,10 @@ void criarGrafoLocalizacoes(Grafo* grafo) {
         localizacao[strcspn(localizacao, "\n")] = 0;
         criarAdicionarNo(grafo, localizacao);
     }
-
     fclose(arquivo);
-
-    // Adicionar as arestas após adicionar os nós
     adicionarArestas(grafo);
 }
 
-// Função para imprimir o grafo
 void imprimirGrafo(Grafo* grafo) {
     No* noAtual = grafo->cabeca;
     printf("Localizações (nós) do grafo:\n");
@@ -88,7 +101,6 @@ void imprimirGrafo(Grafo* grafo) {
             printf("-> %s (distância: %d)\n", arestaAtual->destino->nome, arestaAtual->peso);
             arestaAtual = arestaAtual->prox;
         }
-
         noAtual = noAtual->seguinte;
         printf("\n");
     }
@@ -124,10 +136,17 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
 }
 
 void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int raio, const char* tipo, Meio* listaMeios) {
+    printf("Meios no raio de %d a partir de %s do tipo %s:\n", raio, localizacaoAtual, tipo);
+
     // Encontrar o nó correspondente à localização atual
     No* noAtual = grafo->cabeca;
     while (noAtual != NULL && strcmp(noAtual->nome, localizacaoAtual) != 0) {
         noAtual = noAtual->seguinte;
+    }
+
+    if (noAtual == NULL) {
+        printf("Localização atual não encontrada no grafo.\n");
+        return;
     }
 
     // Percorrer as arestas do nó atual e imprimir os meios dentro do raio e do tipo correspondente
@@ -138,7 +157,7 @@ void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int rai
             Meio* meioAtual = listaMeios;
             while (meioAtual != NULL) {
                 if (strcmp(meioAtual->tipo, tipo) == 0 && strcmp(meioAtual->locMeio, arestaAtual->destino->nome) == 0) {
-                    // Aqui você pode armazenar os resultados em uma estrutura de dados ou realizar qualquer outra operação desejada.
+                    printf("-> Código: %d, Tipo: %s, Bateria: %.2f, Autonomia: %.2f, Custo: %d, Localização: %s (distância: %d)\n", meioAtual->codigo, meioAtual->tipo, meioAtual->bateria, meioAtual->autonomia, meioAtual->custo, meioAtual->locMeio, arestaAtual->peso);
                     break;
                 }
                 meioAtual = meioAtual->seguinte;
@@ -148,26 +167,33 @@ void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int rai
     }
 }
 
-void guardarGrafo(Grafo* grafo){
+int guardarGrafo(Grafo* grafo){
     FILE* fp;
     fp = fopen("grafo.txt","w");
     if(fp == NULL){
         printf("Erro ao abrir o arquivo\n");
-        return;
+        return 0;
     }
 
     No* noAtual = grafo->cabeca;
     while (noAtual != NULL) {
-        fprintf(fp, "%s\n", noAtual->nome);
+        if (fprintf(fp, "%s\n", noAtual->nome) < 0) {
+            fclose(fp);
+            return 0;
+        }
 
         Aresta* arestaAtual = noAtual->arestas;
         while (arestaAtual != NULL) {
-            fprintf(fp, "%s %d\n", arestaAtual->destino->nome, arestaAtual->peso);
+            if (fprintf(fp, "%s %d\n", arestaAtual->destino->nome, arestaAtual->peso) < 0) {
+                fclose(fp);
+                return 0;
+            }
             arestaAtual = arestaAtual->prox;
         }
         noAtual = noAtual->seguinte;
     }
     fclose(fp);
+    return 1; 
 }
 
 void guardarGrafoBinario(Grafo* grafo){
@@ -177,7 +203,6 @@ void guardarGrafoBinario(Grafo* grafo){
         printf("Erro ao abrir o arquivo\n");
         return;
     }
-
     No* noAtual = grafo->cabeca;
     while (noAtual != NULL) {
         fwrite(noAtual, sizeof(No), 1, fp);
@@ -187,7 +212,6 @@ void guardarGrafoBinario(Grafo* grafo){
             fwrite(arestaAtual, sizeof(Aresta), 1, fp);
             arestaAtual = arestaAtual->prox;
         }
-
         noAtual = noAtual->seguinte;
     }
     fclose(fp);

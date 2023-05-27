@@ -239,37 +239,8 @@ int menuLoginCliente(int saldoCliente) {
                 scanf("%d", &raio);
                 printf("Digite o tipo do meio de mobilidade desejado: ");
                 scanf("%s", tipo);
-                printf("Meios no raio de %d a partir de %s do tipo %s:\n", raio, cliente->locCliente, tipo);
-                
-                // Encontrar o nó correspondente à localização atual
-                No* noAtual = grafoGlobal.cabeca;
-                while (noAtual != NULL && strcmp(noAtual->nome, cliente->locCliente) != 0) {
-                    noAtual = noAtual->seguinte;
-                }
-                
-                if (noAtual == NULL) {
-                    printf("Localização atual não encontrada no grafo.\n");
+                listarMeiosPorRaioETipo(&grafoGlobal, cliente->locCliente, raio, tipo, inicio);
                 break;
-    }
-    
-    // Percorrer as arestas do nó atual e imprimir os meios dentro do raio e do tipo correspondente
-    Aresta* arestaAtual = noAtual->arestas;
-    while (arestaAtual != NULL) {
-        if (arestaAtual->peso <= raio) {
-            // Encontrar o meio de mobilidade correspondente à localização atual
-            Meio* meioAtual = inicio;
-            while (meioAtual != NULL) {
-                if (strcmp(meioAtual->tipo, tipo) == 0 && strcmp(meioAtual->locMeio, arestaAtual->destino->nome) == 0) {
-                    printf("-> Código: %d, Tipo: %s, Bateria: %.2f, Autonomia: %.2f, Custo: %d, Localização: %s (distância: %d)\n", meioAtual->codigo, meioAtual->tipo, meioAtual->bateria, meioAtual->autonomia, meioAtual->custo, meioAtual->locMeio, arestaAtual->peso);
-                    break;
-                }
-                meioAtual = meioAtual->seguinte;
-            }
-        }
-        arestaAtual = arestaAtual->prox;
-    }
-    break;
-
         }
     } while (op != 0);
 

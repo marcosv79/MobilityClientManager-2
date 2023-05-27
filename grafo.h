@@ -64,7 +64,7 @@ int existeAresta(No* origem, No* destino);
  * @author Marcos Vasconcelos
  * 
 */
-void adicionarAresta(No* origem, No* destino, int peso);
+int adicionarAresta(No* origem, No* destino, int peso);
 
 
 /**
@@ -75,7 +75,7 @@ void adicionarAresta(No* origem, No* destino, int peso);
  * @author Marcos Vasconcelos
  * 
 */
-void adicionarArestas(Grafo* grafo);
+int adicionarArestas(Grafo* grafo);
 
 
 /**
@@ -86,7 +86,7 @@ void adicionarArestas(Grafo* grafo);
  * @author Marcos Vasconcelos
  * 
 */
-void inicializarGrafo(Grafo* grafo);
+int inicializarGrafo(Grafo* grafo);
 
 
 /**
@@ -146,7 +146,7 @@ void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int rai
  * @author Marcos Vasconcelos
  * 
 */
-void guardarGrafo(Grafo* grafo);
+int guardarGrafo(Grafo* grafo);
 
 
 /**
