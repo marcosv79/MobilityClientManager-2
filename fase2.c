@@ -97,16 +97,14 @@ int menuLoginGestor()
                 meios = lerMeios();
                 break;
             case 9:
-                Grafo grafo;
                 clientes = lerClientes();
                 meios = lerMeios();
                 buscaLocalizacoes(clientes,meios);
-                inicializarGrafo(&grafo);
-                criarGrafoLocalizacoes(&grafo);
-                imprimirGrafo(&grafo);
-                guardarGrafo(&grafo);
-                guardarGrafoBinario(&grafo);
-                grafoGlobal = grafo;
+                inicializarGrafo(&grafoGlobal);
+                criarGrafoLocalizacoes(&grafoGlobal);
+                imprimirGrafo(&grafoGlobal);
+                guardarGrafo(&grafoGlobal);
+                guardarGrafoBinario(&grafoGlobal);
                 break;
         }
     } while (op != 0);
