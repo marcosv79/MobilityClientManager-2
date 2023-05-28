@@ -31,51 +31,15 @@ typedef struct Grafo {
 
 
 /**
- * @brief Cria e adiciona um novo nó ao grafo
+ * @brief Procura nas listas de clientes e meios as localizações e escreve-as no ficheiro de localizações
  * 
- * @param grafo
- * @param localizacao
+ * @param clientes
+ * @param meios
  * @return
  * @author Marcos Vasconcelos
  * 
 */
-No* criarAdicionarNo(Grafo* grafo, const char* localizacao);
-
-
-/**
- * @brief Verifica a existência de uma aresta entre dois nós
- * 
- * @param origem
- * @param destino
- * @return
- * @author Marcos Vasconcelos
- * 
-*/
-int existeAresta(No* origem, No* destino);
-
-
-/**
- * @brief Cria uma aresta entre dois nós
- * 
- * @param origem
- * @param destino
- * @param peso
- * @return
- * @author Marcos Vasconcelos
- * 
-*/
-int adicionarAresta(No* origem, No* destino, int peso);
-
-
-/**
- * @brief Adiciona as arestas à estrutura do grafo
- * 
- * @param grafo
- * @return
- * @author Marcos Vasconcelos
- * 
-*/
-int adicionarArestas(Grafo* grafo);
+void buscaLocalizacoes(Cliente* clientes, Meio* meios);
 
 
 /**
@@ -101,6 +65,54 @@ void criarGrafoLocalizacoes(Grafo* grafo);
 
 
 /**
+ * @brief Cria e adiciona um novo nó ao grafo
+ * 
+ * @param grafo
+ * @param localizacao
+ * @return
+ * @author Marcos Vasconcelos
+ * 
+*/
+No* criarAdicionarNo(Grafo* grafo, char* localizacao);
+
+
+/**
+ * @brief Cria uma aresta entre dois nós
+ * 
+ * @param origem
+ * @param destino
+ * @param peso
+ * @return
+ * @author Marcos Vasconcelos
+ * 
+*/
+int adicionarAresta(No* origem, No* destino, int peso);
+
+
+/**
+ * @brief Adiciona as arestas entre todos os nós à estrutura do grafo
+ * 
+ * @param grafo
+ * @return
+ * @author Marcos Vasconcelos
+ * 
+*/
+int adicionarArestas(Grafo* grafo);
+
+
+/**
+ * @brief Verifica a existência de uma aresta entre dois nós
+ * 
+ * @param origem
+ * @param destino
+ * @return
+ * @author Marcos Vasconcelos
+ * 
+*/
+int existeAresta(No* origem, No* destino);
+
+
+/**
  * @brief Imprime o conteúdo do grafo
  * 
  * @param grafo
@@ -109,18 +121,6 @@ void criarGrafoLocalizacoes(Grafo* grafo);
  * 
 */
 void imprimirGrafo(Grafo* grafo);
-
-
-/**
- * @brief Procura nas listas de clientes e meios as localizações e escreve-as no ficheiro de localizações
- * 
- * @param clientes
- * @param meios
- * @return
- * @author Marcos Vasconcelos
- * 
-*/
-void buscaLocalizacoes(Cliente* clientes, Meio* meios);
 
 
 /**
@@ -135,7 +135,7 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios);
  * @author Marcos Vasconcelos
  * 
 */
-void listarMeiosPorRaioETipo(Grafo* grafo, char localizacaoAtual, int raio, char tipo, Meio* listaMeios);
+void listarMeiosPorRaioETipo(Grafo* grafo, char* localizacaoAtual, int raio, char* tipo, Meio* listaMeios);
 
 
 /**

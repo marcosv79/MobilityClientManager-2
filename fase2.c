@@ -73,6 +73,7 @@ int menuLoginGestor()
                 scanf("%d", &cod);
                 meios = removerMeio(meios, cod);
                 guardarMeios(meios);
+                guardarMeiosBinario(meios);
                 break;
             case 7:
             	system("cls");
@@ -90,6 +91,7 @@ int menuLoginGestor()
 			    scanf("%s", novaLoc);
 			    meios = atualizarMeio(meios, cod, novoTipo, novaBat, novaAut, novoCst, novaLoc);
 			    guardarMeios(meios);
+                guardarMeiosBinario(meios);
 			    break;
             case 8:
                 meios = lerMeios();
