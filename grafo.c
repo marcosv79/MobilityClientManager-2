@@ -135,7 +135,7 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios) {
     fclose(arquivo);
 }
 
-void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int raio, const char* tipo, Meio* listaMeios) {
+void listarMeiosPorRaioETipo(Grafo* grafo, char localizacaoAtual, int raio, char tipo, Meio* listaMeios) {
     printf("Meios no raio de %d a partir de %s do tipo %s:\n", raio, localizacaoAtual, tipo);
 
     // Encontrar o nó correspondente à localização atual

@@ -50,7 +50,7 @@ void listarCliente(Cliente* inicio);
 
 
 /**
- * @brief Determina a existência de um cliente na lista ligada a partir do seu código
+ * @brief Determina a existência de um cliente na lista ligada a partir do seu nif
  * 
  * @param inicio
  * @param nifCliente
@@ -62,7 +62,7 @@ int existeCliente(Cliente* inicio, int nifCliente);
 
 
 /**
- * @brief Remove um cliente na lista ligada a partir do seu código
+ * @brief Remove um cliente na lista ligada a partir do seu nif
  * 
  * @param inicio
  * @param nifC
@@ -70,7 +70,7 @@ int existeCliente(Cliente* inicio, int nifCliente);
  * @author Marcos Vasconcelos
  * 
 */
-Cliente* removerCliente(Cliente* inicio, int nifC); // Remover um meio a partir do seu código
+Cliente* removerCliente(Cliente* inicio, int nifC);
 
 
 /**

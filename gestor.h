@@ -66,7 +66,7 @@ int existeGestor(Gestor* inicio, int idGestor);
  * @author Marcos Vasconcelos
  * 
 */
-Gestor* removerGestor(Gestor* inicio, int idG); // Remover um meio a partir do seu código
+Gestor* removerGestor(Gestor* inicio, int idG);
 
 
 /**

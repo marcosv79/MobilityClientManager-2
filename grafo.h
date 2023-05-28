@@ -135,7 +135,7 @@ void buscaLocalizacoes(Cliente* clientes, Meio* meios);
  * @author Marcos Vasconcelos
  * 
 */
-void listarMeiosPorRaioETipo(Grafo* grafo, const char* localizacaoAtual, int raio, const char* tipo, Meio* listaMeios);
+void listarMeiosPorRaioETipo(Grafo* grafo, char localizacaoAtual, int raio, char tipo, Meio* listaMeios);
 
 
 /**
